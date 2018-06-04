@@ -9,33 +9,37 @@ import { AdminMainComponent } from './admin-main/admin-main.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-const adminRoutes: Routes = [{
-  path: 'admin/:id',
-  component: AdminMainComponent,
-  canActivate: [AdminMainGuardService],
-  children: [{
-    path: '',
-    component: AdminHomeComponent,
-  }
-  ]
-},
-{
-  path: 'admin/login',
-  component: AdminMainComponent,
-  children: [{
-    path: '',
-    component: AdminLoginComponent
-  }]
-}
+const adminRoutes: Routes = [
+  {
+    path: 'admin/profiles/:user',
+    component: AdminMainComponent,
+    canActivate: [AdminMainGuardService],
+    children: [
+      {
+        path: '',
+        component: AdminHomeComponent,
+      },
+    ],
+  },
+  {
+    path: 'admin/login',
+    component: AdminMainComponent,
+    children: [
+      {
+        path: '',
+        component: AdminLoginComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule.forChild(adminRoutes)
+    RouterModule.forChild(adminRoutes),
   ],
   providers: [AdminMainGuardService, AdminMainAuthService],
-  declarations: [AdminLoginComponent, AdminMainComponent, AdminHomeComponent]
+  declarations: [AdminLoginComponent, AdminMainComponent, AdminHomeComponent],
 })
-export class AdminModule { }
+export class AdminModule {}

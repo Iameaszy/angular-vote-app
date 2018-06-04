@@ -4,24 +4,23 @@ import {
   CanActivate,
   Router,
   ActivatedRoute,
-  NavigationExtras
+  NavigationExtras,
 } from '@angular/router';
 
 @Injectable()
 export class AdminMainGuardService implements CanActivate {
-  constructor(private auth: AdminMainAuthService, private router: Router) { }
+  constructor(private auth: AdminMainAuthService, private router: Router) {}
 
   canActivate() {
-    if (this.auth.allow) {
-      return true;
-    }
     return this.checkLogin();
   }
 
   checkLogin() {
-    const pollway = JSON.parse(sessionStorage.getItem('pollway')) || JSON.parse(localStorage.getItem('pollway'));
-    console.log('pollway:', pollway);
-    console.log(this.auth.token);
+    // retrieve our data from storage
+    const pollway =
+      JSON.parse(sessionStorage.getItem('pollway')) ||
+      JSON.parse(localStorage.getItem('pollway'));
+    // if data is present, allow navigation else reject
     if (pollway) {
       return true;
     } else {

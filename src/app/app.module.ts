@@ -4,21 +4,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { AdminModule } from './admin/admin.module';
-
+import { AdminMainAuthService } from './admin/admin-main-auth.service';
+import { AdminMainGuardService } from './admin/admin-main-guard.service';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpClientModule,
     AdminModule,
-    MainRoutingModule
+    MainRoutingModule,
+    CoreModule,
   ],
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
