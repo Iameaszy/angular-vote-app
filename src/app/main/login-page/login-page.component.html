@@ -1,0 +1,54 @@
+<main class='login-wrapper'>
+  <div class="login-form-container">
+    <div class="one">
+      <form action="" #loginForm='ngForm' (submit)="submit()">
+        <p class="login-text text-muted">Login</p>
+        <div class="form-group">
+          <label for="email" class='sr-only'>email</label>
+          <input type="text" class="form-control" [(ngModel)]='models.email' name="email" #email="ngModel" id="email" placeholder="Email"
+            required pattern="([A-Za-z0-9]+?@[A-Za-z]+?\.[A-Za-z]+?)">
+          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+            <div *ngIf="!!email.errors.pattern">
+              Enter a valid email
+            </div>
+            <div *ngIf="!!email.errors.required">
+              email is required
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password" class='sr-only'>password</label>
+          <input minlength="8" #pass='ngModel' type="password" [(ngModel)]='models.password' class="form-control" name="password" id="password"
+            placeholder="Password" required>
+          <div *ngIf="pass.invalid && (pass.dirty || pass.touched)" class="alert alert-danger">
+            Password length must be more than or equal to eight (8);
+          </div>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label text-muted">
+            <input type="checkbox" class="form-check-input" name="remember" id="remember" [ngModel]='models.remember' value="remember"> Remember me?
+          </label>
+        </div>
+        <button type="submit" [disabled]='loginForm.invalid' class="btn btn-block btn-success">Submit</button>
+      </form>
+    </div>
+    <div class="two text-muted">
+      <p>If you don't already have an account click the button below to create your account</p>
+      <button class="btn btn-block create-acct-btn">Create an account</button>
+      <p class='or'>OR</p>
+      <div class="social">
+        <button class="btn btn-block fb-btn">Login with facebook
+          <i class="fa fa-facebook-f"></i>
+        </button>
+        <button class="btn btn-block google-btn">Login with google
+          <i class="fa fa-google"></i>&nbsp;&nbsp;
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="footer text-muted">
+    <p>so you can't get in to your account. Did you
+      <a href="" class='text-muted'>forget your password?</a>
+    </p>
+  </div>
+</main>

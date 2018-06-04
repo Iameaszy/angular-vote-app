@@ -1,0 +1,39 @@
+<div id="errMsg" class="row" *ngIf="errMsg" class='errStatus'>
+  <p>{{errMsg}}</p>
+</div>
+<form class="col-4" id="admin-login-form" (submit)='logIn()' [formGroup]="loginForm">
+  <div class="form-group">
+    <small id="emailHelp" class="form-text text-muted">
+      <span></span> indicate a required field</small>
+    <label class="sr-only" for="inputName">email</label>
+    <input type="text" formControlName="email" class="form-control" name="email" id="inputName" placeholder="email" required
+      pattern="([A-Za-z0-9]+?@[A-Za-z]+?\.[A-Za-z]+?)">
+    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+      <div *ngIf="!!name.errors.pattern">
+        Enter a valid email
+      </div>
+      <div *ngIf="!!name.errors.required">
+        name is required
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="inputPassword">password</label>
+    <input type="password" class="form-control" name="passwd" id="inputPassword" placeholder="password" formControlName="passwd"
+      required minlength="8">
+    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+      <div *ngIf="!!password.errors.required">
+        password is required
+      </div>
+      <div *ngIf="!!password.errors.minlength">
+        password must be greater than eight (8) letters
+      </div>
+    </div>
+  </div>
+  <div class="form-check">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue" formControlName="remember"> Remember me
+    </label>
+  </div>
+  <button type="submit" class="btn btn-success" [disabled]="loginForm.invalid">Login</button>
+</form>
