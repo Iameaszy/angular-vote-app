@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AdminMainAuthService } from '../admin-main-auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpParamsOptions } from '@angular/common/http/src/params';
+import { AdminAuthService } from '../admin-auth.service';
 
 interface Data {
   payload: any;
@@ -21,7 +21,7 @@ export class AdminLoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private authService: AdminMainAuthService,
+    private auth: AdminAuthService,
     private router: Router,
   ) {
     this.loginForm = this.fb.group({
@@ -43,7 +43,12 @@ export class AdminLoginComponent implements OnInit {
     return this.loginForm.get('remember');
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    const pollway = this.auth.checkLogin();
+    if (pollway) {
+      this.router.navigate([`/admin/${pollway.payload.name}`]);
+    }
+  }
   // function to handle our login action
   logIn() {
     // http options for our request
@@ -71,10 +76,8 @@ export class AdminLoginComponent implements OnInit {
             sessionStorage.setItem('pollway', payload);
             // store the data in localStorage
             localStorage.setItem('pollway', payload);
-            // save the token in a service for verification
-            this.authService.token = data.token;
 
-            this.router.navigate([`/admin/profiles/${data.payload.name}`], {
+            this.router.navigate([`/admin/${data.payload.name}`], {
               queryParams: { id: data.payload.email },
               queryParamsHandling: 'preserve',
             });
@@ -82,7 +85,7 @@ export class AdminLoginComponent implements OnInit {
             localStorage.removeItem('pollway');
             sessionStorage.setItem('pollway', JSON.stringify(data));
 
-            this.router.navigate([`/admin/profiles/${data[0].user.name}`], {
+            this.router.navigate([`/admin/${data[0].user.name}`], {
               // pass email to the next component for verification
               queryParams: { email: data[0].user.email },
               queryParamsHandling: 'preserve',
