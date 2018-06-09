@@ -11,14 +11,15 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { SignupPageComponent } from './signup-page/signup-page.component';
 import { MainGuardService } from './main-guard.service';
 import { MainAuthService } from './main-auth.service';
+import { HomepageService } from './homepage/hompage/homepage.service';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'main',
     component: LandingPageComponent,
   },
   {
-    path: 'main',
+    path: '',
     canActivate: [MainGuardService],
     children: [
       {
@@ -44,7 +45,7 @@ const routes: Routes = [
     SignupPageComponent,
     HomepageComponent,
   ],
-  providers: [MainGuardService, MainAuthService],
+  providers: [MainGuardService, MainAuthService, HomepageService],
   exports: [RouterModule],
 })
 export class MainRoutingModule {}
