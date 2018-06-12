@@ -1,0 +1,149 @@
+<div class="col-6 offset-3 bg-light wrapper">
+    <div class="details-wrapper mb-4">
+        <div class="row">
+            <div class="col-4 text-right">TITLE:</div>
+            <div class="col-8">{{data.cv.title}}</div>
+        </div>
+        <div class="row description">
+            <div class="col-4 text-right">DESCRIPTION:</div>
+            <div class="col-8">{{data.cv.description}}</div>
+        </div>
+        <div class="row type">
+            <div class="col-4 text-right">TYPE:</div>
+            <div class="col-8">{{data.cv.type}}</div>
+        </div>
+
+        <div class="row">
+            <div class="col-4 text-right">AUTHOR:</div>
+            <div class="col-8">{{data.user.name}}</div>
+        </div>
+    </div>
+    <form [formGroup]="pollForm">
+        <fieldset formArrayName="pollformArray">
+            <div
+                class="poll"
+                *ngFor="let poll of polls;let pollform of pollformArray.controls;let i=index;"
+                [formGroupName]="i">
+                <legend>
+                    <div class="poll-num">Poll {{i+1}}</div>
+                    <div
+                        class="rm-poll"
+                        *ngIf="i>0">
+                        <i
+                            (click)="removePoll(i)"
+                            class="fa fa-remove text-danger"></i>
+                    </div>
+                    <button
+                        class="btn btn-primary fa fa-minus"
+                        type="button"
+                        data-toggle="collapse"
+                        [attr.data-target]="target+i"
+                        aria-expanded="false"
+                        aria-controls="collapseExample"
+                        (click)="close(i,false);state.margin='noMargin'"
+                        *ngIf="poll.open">
+                    </button>
+                    <button
+                        class="btn btn-primary fa fa-plus"
+                        type="button"
+                        data-toggle="collapse"
+                        [attr.data-target]="target+i"
+                        aria-expanded="false"
+                        aria-controls="collapseExample"
+                        (click)="close(i,true);state.margin=''"
+                        *ngIf="!poll.open">
+                    </button>
+                </legend>
+                <div
+                    class="collapsed collapse show"
+                    id="collapseExample-{{i}}">
+                    <div class="card card-body">
+
+                        <section
+                            class="poll-wrapper"
+                            *ngIf="pollOption == 'text'">
+                            <div class="form-group row">
+
+                                <label
+                                    for="poll-title"
+                                    class="col-3 text-right">
+                                    <strong>Title:</strong>
+                                </label>
+                                <div class="col-8">
+                                    <input
+                                        type="text"
+                                        name="pollTitle"
+                                        id="poll-title"
+                                        class="form-control"
+                                        formControlName="title"
+                                        placeholder="Title of poll">
+                                </div>
+                            </div>
+                            <div
+                                class="form-group row"
+                                *ngFor="let candidate of textCandidates; let ind=index;">
+                                <label
+                                    for="{{candidate}}`"
+                                    class="col-3 text-right">
+                                    Name:
+                                </label>
+                                <div class="col-8">
+                                    <input
+                                        type="text"
+                                        name
+                                        id="{{candidate}}"
+                                        class="form-control"
+                                        [formControlName]="'contestant'+(ind+1)"
+                                        placeholder="{{candidate}}">
+                                </div>
+                                <div
+                                    class="col-1 rmIndex"
+                                    *ngIf="ind>1">
+                                    <i
+                                        (click)="removeTextCandidate(ind);"
+                                        class="fa fa-minus"></i>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <i
+                                    title="add contestant"
+                                    (click)="setControl(i);addTextCandidate()"
+                                    class="fa fa-plus-square fa-2x"></i>
+                            </div>
+
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group row mt-4">
+            <div class="col-4 text-left pl-0">
+                <a
+                    routerLink="/votes/create"
+                    routerLinkActive="active"
+                    type="button"
+                    class="btn btn-primary back-btn">
+                    <i class="fa fa-arrow-left fa-2x"></i>
+                </a>
+            </div>
+            <div class="col-4 text-center">
+                <button
+                    type="submit"
+                    (click)="addPoll()"
+                    class="btn btn-primary mx-auto add-vote-btn">
+                    <strong>Add Poll</strong>
+                </button>
+            </div>
+            <div class="col-4 text-right pr-0">
+                <button
+                    type="button"
+                    [disabled]="true"
+                    class="btn btn-primary mx-auto next-btn px-2">
+                    <i class="fa fa-arrow-right fa-2x"></i>
+                </button>
+            </div>
+
+        </div>
+    </form>
+</div>

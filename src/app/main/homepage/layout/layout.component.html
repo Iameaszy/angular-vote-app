@@ -129,19 +129,7 @@
         </div>
     </nav>
 </header>
-<main class="container-fluid bg-light">
-    <ng-container *ngIf="!votes">
-        <div class="jumbotron jumbotron-fluid">
-            <h1 class="display-3 mb-5">No Poll Created Yet!</h1>
-            <p class="lead">
-                <a
-                    class="btn btn-success btn-lg"
-                    routerLink="/votes/create"
-                    role="button"
-                >
-                    Create  poll
-                </a>
-            </p>
-        </div>
-    </ng-container>
+<main class="container-fluid">
+    <router-outlet></router-outlet>
 </main>
+<footer>footer</footer>

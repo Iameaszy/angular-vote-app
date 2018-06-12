@@ -14,6 +14,7 @@ export class HomepageService {
 
   profile() {}
   gotoProfile() {}
+
   votes() {
     return this.http.get('http://localhost:3000').pipe(map((val, i) => val[0]));
   }

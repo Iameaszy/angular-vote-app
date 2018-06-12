@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 
 import { AdminModule } from './admin/admin.module';
 import { CoreModule } from './core/core.module';
+import { AddVoteComponent } from './main/homepage/create-vote/add-vote/add-vote.component';
 
 @NgModule({
   imports: [

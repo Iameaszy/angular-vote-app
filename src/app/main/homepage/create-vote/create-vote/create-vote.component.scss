@@ -1,0 +1,32 @@
+form {
+    margin-top: 5rem;
+    .wrapper {
+        >small {
+            padding: 2rem;
+            span {
+                color: red;
+            }
+        }
+        .description-error {
+            position: relative;
+            left: 27.5%;
+        }
+        border-radius: 1rem;
+        box-shadow: 0 0 1px;
+        .form-group:not(.third) {
+            label::after {
+                content: "*";
+                color: red;
+            }
+            small {
+                margin-left: 28%;
+            }
+        }
+    }
+    .next-btn {
+        display: block;
+        width: 5rem;
+        border-radius: 1rem;
+        margin: 1rem auto;
+    }
+}

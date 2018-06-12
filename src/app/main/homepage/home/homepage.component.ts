@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HomepageService } from './hompage/homepage.service';
+import { HomepageService } from '../layout/homepage.service';
 
 @Component({
   selector: 'app-homepage',
@@ -8,10 +7,8 @@ import { HomepageService } from './hompage/homepage.service';
   styleUrls: ['./homepage.component.scss'],
 })
 export class HomepageComponent implements OnInit {
-  profileStat: any = false;
   votes: any;
   constructor(private homeService: HomepageService) {}
-
   ngOnInit() {
     this.homeService.votes().subscribe(
       votes => {
@@ -22,14 +19,4 @@ export class HomepageComponent implements OnInit {
       },
     );
   }
-
-  hoverSetting() {}
-
-  clickSetting() {}
-  searchIt(value: string): string {
-    return '';
-  }
-
-  profile() {}
-  gotoProfile() {}
 }
