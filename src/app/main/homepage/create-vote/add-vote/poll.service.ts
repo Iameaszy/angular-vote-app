@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class PollService {
-  index: any = 1;
-  textCandidates: string[] = ['Contestant 1', 'Contestant 2'];
-  imageCandidates: string[] = ['Link 1', 'Link 2'];
-  textIndex: any = this.textCandidates.length;
-  imageIndex: any = this.imageCandidates.length;
-  polls = [{ title: `Poll ${this.index++}`, open: true, ind: 2 }];
+  index = 1;
+  polls = [
+    {
+      title: `Poll ${this.index++}`,
+      open: true,
+      textCandidates: ['Conteststant 1', 'Conteststant 2'],
+      imageCandidates: ['Link 1', 'Link 2'],
+    },
+  ];
 
   constructor() {}
 
@@ -16,7 +19,12 @@ export class PollService {
   }
 
   addPoll() {
-    this.polls.push({ title: `Poll ${this.index++}`, open: true, ind: 2 });
+    this.polls.push({
+      title: `Poll ${this.index++}`,
+      open: true,
+      textCandidates: ['Conteststant 1', 'Conteststant 2'],
+      imageCandidates: ['Link 1', 'Link 2'],
+    });
   }
 
   removePoll(ind: number) {
@@ -26,28 +34,34 @@ export class PollService {
       }
     });
   }
-  addTextCandidate() {
-    this.textCandidates.push(`Contestant ${++this.textIndex}`);
+  addTextCandidate(index: number) {
+    let len = this.polls[index].textCandidates.length;
+    this.polls[index].textCandidates.push(`Conteststant ${++len}`);
   }
-  addImageCandidate() {
-    this.imageCandidates.push(`Link ${++this.imageIndex}`);
-  }
-
-  removeTextCandidate(index: Number) {
-    this.textCandidates = this.textCandidates.filter((candidate, ind) => {
-      if (ind === index) {
-        return false;
-      }
-      return true;
-    });
+  addImageCandidate(index: number) {
+    let len = this.polls[index].textCandidates.length;
+    this.polls[index].textCandidates.push(`Conteststant ${++len}`);
   }
 
-  removeImageCandidate(index: Number) {
-    this.imageCandidates = this.imageCandidates.filter((candidate, ind) => {
-      if (ind === index) {
-        return false;
-      }
-      return true;
-    });
+  removeTextCandidate(index: number, col: number) {
+    this.polls[index].textCandidates = this.polls[index].textCandidates.filter(
+      (candidate, ind) => {
+        if (ind === col) {
+          return false;
+        }
+        return true;
+      },
+    );
+  }
+
+  removeImageCandidate(index: number, col) {
+    this.polls[index].textCandidates = this.polls[index].textCandidates.filter(
+      (candidate, ind) => {
+        if (ind === col) {
+          return false;
+        }
+        return true;
+      },
+    );
   }
 }

@@ -10,9 +10,12 @@ import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
   providers: [PollService],
 })
 export class AddVoteComponent implements OnInit {
-  textCandidates: String[];
-  imageCandidates: String[];
-  polls: { title: String; open: Boolean; ind: number }[];
+  polls: {
+    title: string;
+    open: boolean;
+    textCandidates: string[];
+    imageCandidates: string[];
+  }[];
   pollForm: FormGroup;
   data: { [index: string]: any } = {
     cv: '',
@@ -29,8 +32,7 @@ export class AddVoteComponent implements OnInit {
     private pollService: PollService,
     private fb: FormBuilder,
   ) {
-    this.updateCandidate();
-    this.updatePolls();
+    this.updatePoll();
     this.pollForm = this.fb.group({
       pollformArray: this.fb.array([
         this.fgFromFc({ title: '', contestant1: '', contestant2: '' }),
@@ -51,24 +53,16 @@ export class AddVoteComponent implements OnInit {
     return this.fb.group(data);
   }
 
-  setControl(fg: number) {
-    console.log('fg:', fg);
-    console.log('polls:', this.polls);
-    let i = this.polls[fg].ind;
-    ++i;
-    console.log('i:', i);
-    this.pollformArray.insert(fg, this.fb.control({ a: '' }));
-    this.polls[fg].ind = i;
-  }
+  setControl(fg: number) {}
 
   close(ind: number, open) {
     this.pollService.close(ind, open);
-    this.updatePolls();
+    this.updatePoll();
   }
 
   addPoll() {
     this.pollService.addPoll();
-    this.updatePolls();
+    this.updatePoll();
     this.pollformArray.push(
       this.fb.group({ title: '', contestant1: '', contestant2: '' }),
     );
@@ -76,31 +70,25 @@ export class AddVoteComponent implements OnInit {
 
   removePoll(ind: number) {
     this.pollService.removePoll(ind);
-    this.updatePolls();
+    this.updatePoll();
   }
-  updateCandidate() {
-    this.textCandidates = this.pollService.textCandidates;
-    this.imageCandidates = this.pollService.imageCandidates;
-  }
-  updatePolls() {
+  updatePoll() {
     this.polls = this.pollService.polls;
   }
-  addTextCandidate() {
-    this.pollService.addTextCandidate();
-    this.updateCandidate();
+
+  addTextCandidate(index: number) {
+    this.pollService.addTextCandidate(index);
   }
-  addImageCandidate() {
-    this.pollService.addImageCandidate();
-    this.updateCandidate();
+  addImageCandidate(index: number) {
+    this.pollService.addImageCandidate(index);
+  }
+  removeTextCandidate(index: number, col: number) {
+    this.pollService.removeTextCandidate(index, col);
+    this.updatePoll();
   }
 
-  removeTextCandidate(index: Number) {
-    this.pollService.removeTextCandidate(index);
-    this.updateCandidate();
-  }
-
-  removeImageCandidate(index: Number) {
-    this.pollService.removeImageCandidate(index);
-    this.updateCandidate();
+  removeImageCandidate(index: number, col: number) {
+    this.pollService.removeImageCandidate(index, col);
+    this.updatePoll();
   }
 }

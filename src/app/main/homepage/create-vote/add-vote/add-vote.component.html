@@ -18,12 +18,11 @@
             <div class="col-8">{{data.user.name}}</div>
         </div>
     </div>
-    <form [formGroup]="pollForm">
-        <fieldset formArrayName="pollformArray">
+    <form>
+        <fieldset>
             <div
                 class="poll"
-                *ngFor="let poll of polls;let pollform of pollformArray.controls;let i=index;"
-                [formGroupName]="i">
+                *ngFor="let poll of polls;let i=index;">
                 <legend>
                     <div class="poll-num">Poll {{i+1}}</div>
                     <div
@@ -40,7 +39,7 @@
                         [attr.data-target]="target+i"
                         aria-expanded="false"
                         aria-controls="collapseExample"
-                        (click)="close(i,false);state.margin='noMargin'"
+                        (click)="close(i,false);"
                         *ngIf="poll.open">
                     </button>
                     <button
@@ -50,7 +49,7 @@
                         [attr.data-target]="target+i"
                         aria-expanded="false"
                         aria-controls="collapseExample"
-                        (click)="close(i,true);state.margin=''"
+                        (click)="close(i,true);"
                         *ngIf="!poll.open">
                     </button>
                 </legend>
@@ -75,15 +74,14 @@
                                         name="pollTitle"
                                         id="poll-title"
                                         class="form-control"
-                                        formControlName="title"
                                         placeholder="Title of poll">
                                 </div>
                             </div>
                             <div
                                 class="form-group row"
-                                *ngFor="let candidate of textCandidates; let ind=index;">
+                                *ngFor="let text of poll.textCandidates; let ind=index;">
                                 <label
-                                    for="{{candidate}}`"
+                                    for="{{text}}`"
                                     class="col-3 text-right">
                                     Name:
                                 </label>
@@ -91,23 +89,22 @@
                                     <input
                                         type="text"
                                         name
-                                        id="{{candidate}}"
+                                        id="{{text}}"
                                         class="form-control"
-                                        [formControlName]="'contestant'+(ind+1)"
-                                        placeholder="{{candidate}}">
+                                        placeholder="{{text}}">
                                 </div>
                                 <div
                                     class="col-1 rmIndex"
                                     *ngIf="ind>1">
                                     <i
-                                        (click)="removeTextCandidate(ind);"
+                                        (click)="removeTextCandidate(i,ind);"
                                         class="fa fa-minus"></i>
                                 </div>
                             </div>
                             <div class="row">
                                 <i
                                     title="add contestant"
-                                    (click)="setControl(i);addTextCandidate()"
+                                    (click)="setControl(i);addTextCandidate(i)"
                                     class="fa fa-plus-square fa-2x"></i>
                             </div>
 
