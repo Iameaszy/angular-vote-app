@@ -57,7 +57,7 @@ export class AddVoteComponent implements OnInit {
     let i = this.polls[fg].ind;
     ++i;
     console.log('i:', i);
-    this.pollformArray.at(fg).addControl(`contestant${i}`, this.fb.control(''));
+    this.pollformArray.insert(fg, this.fb.control({ a: '' }));
     this.polls[fg].ind = i;
   }
 
